@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState ,useEffect} from 'react'
 import Card from '../components/Card';
 
 function Home() {
@@ -8,59 +8,58 @@ function Home() {
   const descRef = useRef();
   const [data,setdata] = useState([])
 
-  // function Validation() {
-  //   if (nameRef.current.value.length < 3) {
-  //     alert('berilgan name yaroqsiz')
-  //     nameRef.current.focus()
-  //     nameRef.current.style.outlineColor = 'red'
-  //   }
-  //   if (descRef.current.value.length < 3) {
-  //     alert('berilgan description yaroqsiz')
-  //     descRef.current.focus()
-  //     descRef.current.style.outlineColor = 'red'
-  //   }
-  //   return true
-  // }
+  function Validation() {
+    if (nameRef.current.value.length < 3) {
+      alert('berilgan name yaroqsiz')
+      nameRef.current.focus()
+      nameRef.current.style.outlineColor = 'red'
+    }
+    if (descRef.current.value.length < 3) {
+      alert('berilgan description yaroqsiz')
+      descRef.current.focus()
+      descRef.current.style.outlineColor = 'red'
+    }
+    return true
+  }
 
 
 
-  // function add_btn(e) {
-  //   e.preventDefault();
+  function add_btn(e) {
+    e.preventDefault();
 
-  //   const isValid = Validation()
-  //   if (!isValid) {
-  //     return
-  //   }
+    const isValid = Validation()
+    if (!isValid) {
+      return
+    }
 
-  //   const data = {
-  //     "name" : nameRef.current.value,
-  //     "price" : priceRef.current.value,
-  //     "description" : descRef.current.value
-  //   }
+    const data = {
+      "name" : nameRef.current.value,
+      "price" : priceRef.current.value,
+      "description" : descRef.current.value
+    }
     
-  //   fetch('https://auth-rg69.onrender.com/api/products/private/all ',{
-  //     method : "POST",
-  //     headers :{
-  //       'Authorization': `Bearer ${token}`
-  //     },
-  //     body : JSON.stringify(data)
-  //   })
-  //   .then(function (res) {
-  //     if (res.status == 200) {
-  //       return res.json()
-  //     }
-  //   })
-  //   .then(function (data) {
-  //     console.log(data);
-  //   })
+    fetch('https://auth-rg69.onrender.com/api/products/private/all ',{
+      method : "POST",
+      headers :{
+        'Authorization': `Bearer ${token}`
+      },
+      body : JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (res.status == 200) {
+        return res.json()
+      }
+    })
+    .then(function (data) {
+      console.log(data);
+    })
     
-  // }
+  }
 
   
   
 
   useEffect(function () {
-    const token = token
 
       fetch('https://auth-rg69.onrender.com/api/products/private/all',{
           method : "GET",
