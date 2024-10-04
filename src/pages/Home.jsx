@@ -33,12 +33,12 @@ function Home() {
     }
 
     const data = {
-      "name" : nameRef.current.value,
-      "price" : priceRef.current.value,
-      "description" : descRef.current.value
+      name: nameRef.current.value,
+      price: priceRef.current.value,
+      description : descRef.current.value
     }
     
-    fetch('https://auth-rg69.onrender.com/api/products/private/all ',{
+    fetch('https://auth-rg69.onrender.com/api/products/private',{
       method : "POST",
       headers :{
         'Authorization': `Bearer ${token}`
@@ -67,24 +67,40 @@ function Home() {
               'Authorization':`Bearer ${token}`
           }
       })
-      
+     
       .then(function (res) {
           if (res.status==200) {
               return res.json()
           }
       })
       .then(function (data) {
-        
-          console.log(data);
           setdata(data)
-          console.log(token);
       })
       .catch(function (err) {
           console.log(err);
       })
   },[])
 
+  function delItem(id) {
+    let conf = confirm('rostdan ham uchirmoqchimisz')
+    if (conf  ) {
+      fetch(`https://auth-rg69.onrender.com/api/products/private/ ${id}`,{
+        method:"DELETE",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data);
 
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    }
+  }
 
   return (
     <>
@@ -95,7 +111,7 @@ function Home() {
         <button className='bg-blue-400 py-2 px-3 rounded-md text-yellow-300' onClick={add_btn}>ADD CARD</button>
      </div>
      {data.length > 0 && data.map(function (product) {
-            return <Card data={product} key={product.id}></Card>
+            return <Card data={product} key={product.id} delItem={delItem}></Card>
         
           })}
     </>
