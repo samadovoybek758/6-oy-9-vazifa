@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react'
 import Card from '../components/Card';
 
 function Home() {
-  // const[token,setToken] = useState(localStorage.getItem('token'))
-  // const nameRef = useRef();
-  // const priceRef = useRef();
-  // const descRef = useRef();
+  const[token,setToken] = useState(localStorage.getItem('token'))
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const descRef = useRef();
+  const [data,setdata] = useState([])
 
-  // console.log(token);
   // function Validation() {
   //   if (nameRef.current.value.length < 3) {
   //     alert('berilgan name yaroqsiz')
@@ -57,38 +57,39 @@ function Home() {
   // }
 
   
-  // const [data,setdata] = useState([])
+  
 
-  // useEffect(function () {
-  //     fetch('https://auth-rg69.onrender.com/api/products/private/all',{
-  //         method : "GET",
-  //         headers :{
-  //             'Authorization':`Bearer ${token}`
-  //         }
-  //     })
+  useEffect(function () {
+    const token = token
+
+      fetch('https://auth-rg69.onrender.com/api/products/private/all',{
+          method : "GET",
+          headers :{
+              'Authorization':`Bearer ${token}`
+          }
+      })
       
-  //     .then(function (res) {
-  //         if (res.status==200) {
-  //             return res.json()
-  //         }
-  //     })
-  //     .then(function (data) {
+      .then(function (res) {
+          if (res.status==200) {
+              return res.json()
+          }
+      })
+      .then(function (data) {
         
-  //         console.log(data);
-  //         setdata(data)
-  //         console.log(token);
-  //     })
-  //     .catch(function (err) {
-  //         console.log(err);
-  //     })
-  // },[])
+          console.log(data);
+          setdata(data)
+          console.log(token);
+      })
+      .catch(function (err) {
+          console.log(err);
+      })
+  },[])
 
 
 
   return (
     <>
-    sdfzdfgzfg
-      {/* <div className='flex flex-col py-7 px-6 gap-3 my-16 container rounded-md max-w-[600px] mx-auto bg-green-300  '>
+      <div className='flex flex-col py-7 px-6 gap-3 my-16 container rounded-md max-w-[600px] mx-auto bg-green-300  '>
         <input className='px-3 py-2 rounded-md text-gray-800 ' ref={nameRef} type="text" placeholder='Enter name...' />
         <input className='px-3 py-2 rounded-md text-gray-800 ' ref={priceRef} type="number" placeholder='Enter price...'/>
         <input className='px-3 py-2 rounded-md text-gray-800 ' ref={descRef} type="text" placeholder='Enter something...' />
@@ -97,7 +98,7 @@ function Home() {
      {data.length > 0 && data.map(function (product) {
             return <Card data={product} key={product.id}></Card>
         
-          })} */}
+          })}
     </>
   )
 }

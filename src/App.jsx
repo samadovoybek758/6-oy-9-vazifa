@@ -19,7 +19,7 @@ function App() {
     }
   }, []);
 
-  function PrivateRoute(isAuth, children) {
+  function PrivateRoute({isAuth, children}) {
     if (!isAuth) {
       navigate("/login");
     }
